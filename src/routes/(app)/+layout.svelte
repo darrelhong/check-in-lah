@@ -9,8 +9,8 @@
 
 <div class="flex flex-col min-h-screen">
 	<header class="m-4">
-		<div class="flex container mx-auto items-center">
-			<p class="font-bold text-blue-600 me-auto text-2xl">check-in-lah</p>
+		<div class="flex container mx-auto items-center gap-2">
+			<p class="font-bold text-blue-600 me-auto text-2xl shrink-0">check-in-lah</p>
 
 			<!-- use form so that it works without javascript -->
 			<!-- fallback to js in case of network error -->
