@@ -11,12 +11,7 @@ export const actions = {
 			await locals.pb.collection('users').authWithPassword(email as string, password as string);
 		} catch (e) {
 			if (e instanceof ClientResponseError) {
-				if (e.originalError.data.data.email) {
-					return fail(400, { errorMessage: e.originalError.data.data.email.message });
-				}
-				if (e.originalError.data.data.password) {
-					return fail(400, { errorMessage: e.originalError.data.data.password.message });
-				}
+				return fail(400, { errorMessage: e.originalError.data.message });
 			}
 
 			return fail(500, { errorMessage: 'Something went wrong' });
