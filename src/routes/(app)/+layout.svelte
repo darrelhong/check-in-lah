@@ -18,7 +18,7 @@
 				action="/logout"
 				method="POST"
 				use:enhance={() => {
-					return async ({ result, update }) => {
+					return async ({ result }) => {
 						const { type } = result;
 						if (type === 'error') {
 							pb.authStore.clear();
