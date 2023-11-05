@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import { pb } from '$lib/poocketbase';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
-	const { pb } = data;
 </script>
 
 <div class="flex flex-col min-h-screen">

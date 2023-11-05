@@ -18,7 +18,11 @@ export async function handle({ event, resolve }) {
 	const response = await resolve(event);
 
 	// set cookie if auth store is populated
-	response.headers.append('set-cookie', event.locals.pb.authStore.exportToCookie());
+	// set http only to false for client pocketbase instance to be able to read it in hooks.client.ts
+	response.headers.append(
+		'set-cookie',
+		event.locals.pb.authStore.exportToCookie({ httpOnly: false })
+	);
 
 	return response;
 }
