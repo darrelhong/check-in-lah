@@ -13,7 +13,7 @@
 		<tr class="text-left border-b-2 border-slate-400 font-semibold text-slate-8800">
 			<th class="pb-3">Name</th>
 			<th>Address</th>
-			<th></th>
+			<th />
 		</tr>
 	</thead>
 	<tbody>
@@ -21,7 +21,9 @@
 			<tr class="border-t border-slate-300">
 				<td class="py-3 text-slate-700 font-medium">{facility.name}</td>
 				<td class="text-slate-600">{facility.address}</td>
-				<td class="text-right font-medium text-blue-600 text-sm">QR code page</td>
+				<td class="text-right font-medium text-blue-600 text-sm">
+					<a href={`admin/qr/${facility.id}/${encodeURIComponent(facility.name)}`}>QR code page</a>
+				</td>
 			</tr>
 		{/each}
 	</tbody>
