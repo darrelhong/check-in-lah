@@ -8,7 +8,9 @@
 	export let data: PageData;
 
 	$: ({ authStoreModel } = data);
-
+	$: {
+		console.log(authStoreModel);
+	}
 	let locationLoading = true;
 	let lat = 0;
 	let lng = 0;
@@ -52,7 +54,13 @@
 	};
 </script>
 
-<p class="mb-4">Logged in as {authStoreModel.email}</p>
+<div class="mb-4 flex gap-2 items-center">
+	<p>Logged in as {authStoreModel.email}</p>
+
+	{#if authStoreModel.role === 'admin'}
+		<a class="btn" href="admin">Manage</a>
+	{/if}
+</div>
 
 <div class="grid gap-4 sm:grid-flow-col">
 	<div>
