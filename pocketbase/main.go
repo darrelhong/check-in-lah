@@ -17,7 +17,11 @@ func main() {
 	app.OnRecordBeforeCreateRequest("check_in").Add(func(e *core.RecordCreateEvent) error {
 		log.Println("record before create check_in")
 
-		timePeriodStr := apis.RequestInfo(e.HttpContext).Data["time_period_str"].(string)
+		timePeriodStr, ok := apis.RequestInfo(e.HttpContext).Data["time_period_str"].(string)
+
+		if !ok {
+			return nil
+		}
 
 		timePeriod, err := time.Parse("01/02/2006, 3:04:05 pm GMT-07:00", timePeriodStr)
 
