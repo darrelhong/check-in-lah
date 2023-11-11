@@ -5,15 +5,31 @@
 	import { onMount } from 'svelte';
 
 	let xml: string;
+	let timeoutId;
 
-	onMount(async () => {
+	const refreshQRCode = async () => {
 		try {
-			xml = await QRCode.toString(`the quick brown fox jumps over the lazy dog`, { type: 'svg' });
-			console.log(xml);
+			const timePeriod = new Date();
+			// set time period to nearest past 15 minutes
+			timePeriod.setMinutes(Math.floor(timePeriod.getMinutes() / 15) * 15, 0, 0);
+			const timePeriodStr = timePeriod.toLocaleString('en-SG');
+			// encode time period and facility id into QR code
+			// when scanned, it proves that the user was at the facility at the time period
+			// TODO: encrypt the QR code
+			xml = await QRCode.toString(`${timePeriodStr}|${$page.params.id}`, { type: 'svg' });
+
+			// refresh QR code every 15 minutes
+			const now = new Date();
+			const minutes = now.getMinutes();
+			const nextQuarterHour = Math.ceil(minutes / 15) * 15;
+			const msUntilNextQuarterHour = (nextQuarterHour - minutes) * 60 * 1000;
+			timeoutId = setTimeout(refreshQRCode, msUntilNextQuarterHour);
 		} catch (err) {
 			console.error(err);
 		}
-	});
+	};
+
+	onMount(refreshQRCode);
 </script>
 
 <div class="min-h-screen grid place-items-center grid-rows-[1fr_auto]">
