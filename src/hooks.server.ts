@@ -1,4 +1,5 @@
 import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
+import { dev } from '$app/environment';
 import PocketBase from 'pocketbase';
 
 export async function handle({ event, resolve }) {
@@ -21,7 +22,8 @@ export async function handle({ event, resolve }) {
 	// set http only to false for client pocketbase instance to be able to read it in hooks.client.ts
 	response.headers.append(
 		'set-cookie',
-		event.locals.pb.authStore.exportToCookie({ httpOnly: false })
+		// secure false for mobile device testing on local network
+		event.locals.pb.authStore.exportToCookie({ httpOnly: false, secure: !dev })
 	);
 
 	return response;

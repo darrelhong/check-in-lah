@@ -12,7 +12,9 @@
 			const timePeriod = new Date();
 			// set time period to nearest past 15 minutes
 			timePeriod.setMinutes(Math.floor(timePeriod.getMinutes() / 15) * 15, 0, 0);
-			const timePeriodStr = timePeriod.toLocaleString('en-SG');
+			// use locale time for readability
+			const timePeriodStr = timePeriod.toLocaleString('en-SG', { timeZoneName: 'longOffset' });
+
 			// encode time period and facility id into QR code
 			// when scanned, it proves that the user was at the facility at the time period
 			// TODO: encrypt the QR code
