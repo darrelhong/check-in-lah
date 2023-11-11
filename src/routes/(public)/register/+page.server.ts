@@ -24,7 +24,6 @@ export const actions = {
 		} catch (e) {
 			if (e instanceof ClientResponseError) {
 				if (e.originalError.data.data.email) {
-					console.log(e.originalError.data.data.email);
 					return fail(400, { errorMessage: e.originalError.data.data.email.message });
 				}
 				if (e.originalError.data.data.password) {

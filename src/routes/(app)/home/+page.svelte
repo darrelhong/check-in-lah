@@ -8,9 +8,6 @@
 	export let data: PageData;
 
 	$: ({ authStoreModel } = data);
-	$: {
-		console.log(authStoreModel);
-	}
 	let locationLoading = true;
 	let lat = 0;
 	let lng = 0;
