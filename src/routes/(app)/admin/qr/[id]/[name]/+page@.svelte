@@ -38,7 +38,9 @@
 		<div
 			class="w-full my-1 ring-2 ring-slate-300 aspect-square max-h-[80vh] max-w-[80vh] rounded-lg overflow-hidden"
 		>
-			{@html xml}
+			{#if xml}
+				{@html xml}
+			{/if}
 		</div>
 		<p class="text-lg font-medium">Scan QR code to confirm</p>
 	</div>
