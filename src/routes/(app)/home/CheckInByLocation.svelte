@@ -7,8 +7,10 @@
 	let locationLoading = true;
 	let lat = 0;
 	let lng = 0;
+	let success = false;
 
 	const checkInByLocation = async () => {
+		success = false;
 		if (locationLoading || (lat === 0 && lng === 0)) {
 			return;
 		}
@@ -18,6 +20,7 @@
 				longitude: lng,
 				user_id: pb.authStore.model?.id
 			});
+			success = true;
 		} catch (e) {
 			if (e instanceof ClientResponseError) {
 				console.error(e);
@@ -91,4 +94,7 @@
 		on:click={checkInByLocation}
 		disabled={locationLoading || (lat === 0 && lng === 0)}>Check in</button
 	>
+	{#if success}
+		<p class="text-green-600 mt-1 font-semibold">Checked-in successfully</p>
+	{/if}
 </div>
