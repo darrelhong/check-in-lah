@@ -56,6 +56,10 @@ You can preview the production build with `npm run preview`.
 
 Try it at https://check-in-lah.pages.dev/
 
-<img src="docs/home.jpg" width="500">
+|<img src="docs/home.jpg" width="500">|
+|:--:|
+| *Home page* |
 
-<img src="docs/qr.jpg">
+|<img src="docs/qr.jpg">|
+|:--:|
+| *QR code page* |
