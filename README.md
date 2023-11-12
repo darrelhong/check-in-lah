@@ -1,9 +1,17 @@
 # Features
 
-- Authentication
-- Location-based check-in
-- QR code-based check-in
+### Authentication
 
+- Register with email
+
+### Location based check-in
+
+- Check-in with coordinates
+
+### QR code based check-in
+
+- Ephemeral auto generated QR codes per location
+- Scan QR code to check-in
 
 # create-svelte
 
@@ -43,3 +51,11 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+# Screenshots
+
+Try it at https://check-in-lah.pages.dev/
+
+<img src="docs/home.jpg" width="500">
+
+<img src="docs/qr.jpg">
