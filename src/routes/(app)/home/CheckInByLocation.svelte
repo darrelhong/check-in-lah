@@ -8,6 +8,7 @@
 	let lat = 0;
 	let lng = 0;
 	let success = false;
+	let geolocationError: GeolocationPositionError['code'] | 'Not supported';
 
 	const checkInByLocation = async () => {
 		success = false;
@@ -28,33 +29,37 @@
 		}
 	};
 
-	onMount(() => {
+	const getLocation = () => {
 		if (!navigator.geolocation) {
-			console.error('Geolocation is not supported by your browser');
+			geolocationError = 'Not supported';
+			locationLoading = false;
 			return;
 		}
 
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
 				const { latitude, longitude } = position.coords;
-				// locationLoading = false;
 				lat = latitude;
 				lng = longitude;
 				locationLoading = false;
 			},
 			(error) => {
 				console.error(`Unable to retrieve your location. Error: ${error.message}`);
+				geolocationError = error.code;
+				locationLoading = false;
 			},
 			{ maximumAge: 60000 }
 		);
-	});
+	};
+
+	onMount(getLocation);
 </script>
 
 <div>
 	<h2 class="text-lg font-bold mb-2">Check-in by location</h2>
 
 	<div class="rounded-lg shadow max-w-lg w-full h-xs grid place-items-center overflow-hidden">
-		{#if locationLoading || (lat === 0 && lng === 0)}
+		{#if locationLoading}
 			<div class="flex items-center">
 				<svg
 					class="animate-spin me-2 h-4 w-4 text-blue-600"
@@ -78,6 +83,12 @@
 				</svg>
 				<p>Waiting for location</p>
 			</div>
+		{:else if geolocationError === 'Not supported'}
+			<p>Geolocation is not supported by your browser</p>
+		{:else if geolocationError === GeolocationPositionError.PERMISSION_DENIED}
+			<p>Permission denied</p>
+		{:else if geolocationError === GeolocationPositionError.POSITION_UNAVAILABLE || geolocationError === GeolocationPositionError.TIMEOUT}
+			<p>An error occured retrieving your location</p>
 		{:else}
 			<iframe
 				class="w-full h-full"
