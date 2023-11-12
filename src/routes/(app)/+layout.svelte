@@ -17,6 +17,9 @@
 				use:enhance={() => {
 					return async ({ result }) => {
 						const { type } = result;
+						if (type === 'redirect') {
+							goto(result.location);
+						}
 						if (type === 'error') {
 							pb.authStore.clear();
 							goto('/');
